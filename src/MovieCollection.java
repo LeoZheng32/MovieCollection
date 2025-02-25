@@ -123,6 +123,8 @@ public class MovieCollection {
                 System.out.println(interation + ". " + movie);
                 interation++;
             }
+        } else {
+            System.out.println("No name match that search term!");
         }
         System.out.print("** Press Enter to Return to Main Menu **");
         scanner.nextLine();
