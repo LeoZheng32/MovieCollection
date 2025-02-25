@@ -14,4 +14,17 @@ public class Movie {
         this.runtime = runtime;
         this.userRating = userRating;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String info() {
+        return "Title: " + title +
+                "\nRuntime: " + runtime + " minutes" +
+                "\nDirected by: " + director +
+                "\nCast: " + cast +
+                "\nOverview: " + overview +
+                "User rating: " + userRating;
+    }
 }
