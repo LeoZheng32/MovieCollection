@@ -10,8 +10,9 @@ public class MovieCollection {
         try {
             File myFile = new File("src//movies_data.csv");
             Scanner fileScanner = new Scanner(myFile);
+            String data = fileScanner.nextLine();
             while (fileScanner.hasNext()) {
-                String data = fileScanner.nextLine();
+                data = fileScanner.nextLine();
                 String[] splitData = data.split(",");
                 movieArrayList.add(new Movie(splitData[0], splitData[1], splitData[2], splitData[3], Integer.parseInt(splitData[4]), Double.parseDouble(splitData[5])));
             }
@@ -46,23 +47,34 @@ public class MovieCollection {
     }
 
     private void searchTitles() {
-        int num = 1;
-        ArrayList<Movie> searchedMovie = new ArrayList<>();
-        System.out.println("Enter a title search term: ");
+        ArrayList<String> searchedMovie = new ArrayList<>();
+        System.out.print("Enter a title search term: ");
         String term = scanner.nextLine().toLowerCase();
         for (Movie movie : movieArrayList) {
             if (movie.getTitle().toLowerCase().contains(term)) {
-                System.out.println(num + ". " + movie.getTitle());
-                num++;
-                searchedMovie.add(movie);
+                searchedMovie.add(movie.getTitle());
             }
         }
+
+        insertionSortWordList(searchedMovie);
+
+        int i = 1;
+        for (String movie : searchedMovie) {
+            System.out.println(i + ". " + movie);
+            i++;
+        }
+
         if (!searchedMovie.isEmpty()) {
             System.out.println("Which movie would you like to learn more about? ");
-            System.out.println("Enter number: ");
+            System.out.print("Enter number: ");
             int movieNum = scanner.nextInt();
             scanner.nextLine();
-            searchedMovie.get(movieNum - 1).info();
+            for (Movie movie : movieArrayList) {
+                if (movie.getTitle().equals(searchedMovie.get(movieNum - 1))) {
+                    System.out.println(movie.info());
+                    break;
+                }
+            }
         } else {
             System.out.println("No movie titles match that search term!");
         }

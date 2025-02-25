@@ -19,12 +19,16 @@ public class Movie {
         return title;
     }
 
+    public String getCast() {
+        return cast;
+    }
+
     public String info() {
         return "Title: " + title +
                 "\nRuntime: " + runtime + " minutes" +
                 "\nDirected by: " + director +
                 "\nCast: " + cast +
                 "\nOverview: " + overview +
-                "User rating: " + userRating;
+                "\nUser rating: " + userRating;
     }
 }
