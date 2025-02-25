@@ -37,7 +37,7 @@ public class MovieCollection {
             if (menuOption.equals("t")) {
                 searchTitles();
             } else if (menuOption.equals("c")) {
-                //searchCast();
+                searchCast();
             } else if (menuOption.equals("q")) {
                 System.out.println("Goodbye!");
             } else {
@@ -82,7 +82,61 @@ public class MovieCollection {
         scanner.nextLine();
     }
 
-    //private void searchCast {
+    private void searchCast() {
+        ArrayList<String> findCast = new ArrayList<>();
+        System.out.print("Enter to search for a cast: ");
+        String term = scanner.nextLine().toLowerCase();
+        for (Movie movie : movieArrayList) {
+            String[] splitData = movie.getCast().split("\\|");
+            for (String data : splitData) {
+                if (data.toLowerCase().contains(term) && !findCast.contains(data)) {
+                    findCast.add(data);
+                }
+            }
+        }
+        insertionSortWordList(findCast);
+        int i = 1;
+        for (String movie : findCast) {
+            System.out.println(i + ". " + movie);
+            i++;
+        }
 
-    //}
+        if (!findCast.isEmpty()) {
+            System.out.println("Which cast member would you like see all movies for? ");
+            System.out.print("Enter number: ");
+            String name = findCast.get(scanner.nextInt()-1);
+            scanner.nextLine();
+
+            ArrayList<String> castMovie = new ArrayList<>();
+            for (Movie movie : movieArrayList) {
+                String[] splitData = movie.getCast().split("\\|");
+                for (int j = 0; j < splitData.length; j++) {
+                    if (splitData[j].contains(name)) {
+                        castMovie.add(movie.getTitle());
+                        break;
+                    }
+                }
+            }
+            insertionSortWordList(castMovie);
+            int interation = 1;
+            for (String movie : castMovie) {
+                System.out.println(interation + ". " + movie);
+                interation++;
+            }
+        }
+        System.out.print("** Press Enter to Return to Main Menu **");
+        scanner.nextLine();
+    }
+
+    private void insertionSortWordList(ArrayList<String> words) {
+        for (int i = 0; i < words.size(); i++) {
+            int m = i;
+            while (m-1 >= 0 && words.get(m).compareTo(words.get(m-1)) < 0) {
+                String temp = words.get(m-1);
+                words.set(m-1, words.get(m));
+                words.set(m, temp);
+                m--;
+            }
+        }
+    }
 }
